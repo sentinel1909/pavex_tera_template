@@ -28,6 +28,7 @@ pub struct TemplateFile {
 
 // struct type to represent a Tera Template Engine
 #[derive(Clone, Debug)]
+#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct TemplateEngine {
     pub tera: Tera,
 }
