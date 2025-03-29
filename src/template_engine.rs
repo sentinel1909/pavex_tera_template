@@ -4,6 +4,7 @@
 use crate::template::TemplateConfig;
 use tera::{Error, Tera};
 
+// function which accepts a reference to a configuration type, builds an returns a template instance
 pub fn compile_templates(config: &TemplateConfig) -> Result<Tera, Error> {
     let pattern = format!("{}/{}", config.dir, config.pattern);
     let mut tera = Tera::new(&pattern)?;
