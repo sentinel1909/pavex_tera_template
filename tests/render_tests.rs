@@ -8,10 +8,8 @@ use tera::Context;
 
 #[test]
 fn test_rendering_index_template_with_includes_and_extends() {
-    // Arrange 
-    let template_dir: PathBuf = std::env::current_dir()
-        .unwrap()
-        .join("tests/templates");
+    // Arrange
+    let template_dir: PathBuf = std::env::current_dir().unwrap().join("tests/templates");
 
     assert!(template_dir.exists(), "Template directory does not exist");
 
@@ -45,4 +43,3 @@ fn test_rendering_index_template_with_includes_and_extends() {
         "Title block did not override correctly"
     );
 }
-

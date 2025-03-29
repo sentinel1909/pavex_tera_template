@@ -2,12 +2,16 @@
 
 // dependencies
 use crate::template_engine::compile_templates;
-use serde::Serialize;
 use std::borrow::Cow;
 use tera::{Context, Error, Tera};
 
+// features
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+
 // struct type to represent the template storage configuration
 #[derive(Clone, Debug)]
+#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct TemplateConfig {
     pub dir: Cow<'static, str>,
     pub pattern: String,
@@ -16,6 +20,7 @@ pub struct TemplateConfig {
 
 // Represents a single template file with an optional name override
 #[derive(Clone, Debug)]
+#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct TemplateFile {
     pub path: String,
     pub name: Option<String>,
@@ -37,9 +42,4 @@ impl TemplateEngine {
     pub fn render(&self, template_name: &str, context: &Context) -> Result<String, Error> {
         self.tera.render(template_name, context)
     }
-}
-
-// helper method for constructing context from any type that implements serde::Serialze
-pub fn context_from_struct<T: Serialize>(data: &T) -> Context {
-    Context::from_serialize(data).unwrap_or_default()
 }
