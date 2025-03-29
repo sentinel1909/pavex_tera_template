@@ -7,3 +7,4 @@ pub mod template_engine;
 // re-exports
 pub use template::*;
 pub use template_engine::*;
+pub use tera::{Context, Error};
