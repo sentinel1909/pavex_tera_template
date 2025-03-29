@@ -1,16 +1,12 @@
 // src/template.rs
 
 // dependencies
+use crate::template_engine::compile_templates;
 use serde::Serialize;
 use std::borrow::Cow;
 use tera::{Context, Error, Tera};
 
-// struct type to represent a Tera Template Engine
-pub struct TemplateEngine {
-    tera: Tera,
-}
-
-// struct type to represent the emplate storage configuration
+// struct type to represent the template storage configuration
 #[derive(Clone, Debug)]
 pub struct TemplateConfig {
     pub dir: Cow<'static, str>,
@@ -32,27 +28,16 @@ pub struct TeraTemplate {
     pub context: Context,
 }
 
+// struct type to represent a Tera Template Engine
+pub struct TemplateEngine {
+    tera: Tera,
+}
+
 // methods for the Tera Template Engine
 impl TemplateEngine {
-    pub fn compile_templates(config: &TemplateConfig) -> Result<Tera, Error> {
-        let pattern = format!("{}/{}", config.dir, config.pattern);
-        let mut tera = Tera::new(&pattern)?;
-
-        // Add any extra templates with custom names
-        let template_files: Vec<(String, Option<&str>)> = config
-            .extra_templates
-            .iter()
-            .map(|f| {
-                let path = format!("{}/{}", config.dir, f.path);
-                (path, f.name.as_deref())
-            })
-            .collect();
-
-        if !template_files.is_empty() {
-            tera.add_template_files(template_files)?;
-        }
-
-        Ok(tera)
+    pub fn new(config: &TemplateConfig) -> Result<Self, Error> {
+        let tera = compile_templates(config)?;
+        Ok(Self { tera })
     }
 
     pub fn render(&self, template_name: &str, context: &Context) -> Result<String, Error> {
