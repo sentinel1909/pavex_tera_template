@@ -46,7 +46,7 @@ mod tests {
         };
 
         // Act
-        let engine = crate::TemplateEngine::new(&config).unwrap();
+        let engine = crate::TemplateEngine::build(&config).unwrap();
 
         let mut context = Context::new();
         context.insert("name", "Rustacean");

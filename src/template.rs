@@ -21,13 +21,6 @@ pub struct TemplateFile {
     pub name: Option<String>,
 }
 
-// struct type to represent a Tera template
-#[derive(Clone, Debug)]
-pub struct TeraTemplate {
-    pub config: TemplateConfig,
-    pub context: Context,
-}
-
 // struct type to represent a Tera Template Engine
 pub struct TemplateEngine {
     tera: Tera,
@@ -35,7 +28,7 @@ pub struct TemplateEngine {
 
 // methods for the Tera Template Engine
 impl TemplateEngine {
-    pub fn new(config: &TemplateConfig) -> Result<Self, Error> {
+    pub fn build(config: &TemplateConfig) -> Result<Self, Error> {
         let tera = compile_templates(config)?;
         Ok(Self { tera })
     }
