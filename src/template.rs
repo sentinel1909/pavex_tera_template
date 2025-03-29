@@ -22,8 +22,9 @@ pub struct TemplateFile {
 }
 
 // struct type to represent a Tera Template Engine
+#[derive(Clone, Debug)}
 pub struct TemplateEngine {
-    tera: Tera,
+    pub tera: Tera,
 }
 
 // methods for the Tera Template Engine
