@@ -9,3 +9,4 @@ pub mod errors;
 pub use config::{TemplateConfig, TemplateFile};
 pub use engine::TemplateEngine;
 pub use errors::TemplateError;
+pub use tera::Context;
