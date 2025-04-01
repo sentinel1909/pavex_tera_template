@@ -20,7 +20,7 @@ fn test_rendering_index_template_with_includes_and_extends() {
         extra_templates: vec![],
     };
 
-    let engine = TemplateEngine::build(&config).expect("Failed to compile templates");
+    let engine = TemplateEngine::from_config(&config).expect("Failed to compile templates");
 
     let mut context = Context::new();
     context.insert("name", "Rustacean");

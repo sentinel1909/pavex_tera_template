@@ -1,11 +1,30 @@
-// serc/template_engine.rs
+// src/engine.rs
 
 // dependencies
-use crate::template::TemplateConfig;
-use tera::{Error, Tera};
+use crate::config::TemplateConfig;
+use crate::errors::TemplateError;
+use tera::{Context, Tera};
+
+// struct type to represent a Tera Template Engine
+#[derive(Clone, Debug)]
+pub struct TemplateEngine {
+    pub tera: Tera,
+}
+
+// methods for the Tera Template Engine
+impl TemplateEngine {
+    pub fn from_config(config: &TemplateConfig) -> Result<Self, TemplateError> {
+        let tera = compile_templates(config)?;
+        Ok(Self { tera })
+    }
+
+    pub fn render(&self, template_name: &str, context: &Context) -> Result<String, TemplateError> {
+        Ok(self.tera.render(template_name, context)?)
+    }
+}
 
 // function which accepts a reference to a configuration type, builds an returns a template instance
-pub fn compile_templates(config: &TemplateConfig) -> Result<Tera, Error> {
+pub fn compile_templates(config: &TemplateConfig) -> Result<Tera, TemplateError> {
     let pattern = format!("{}/{}", config.dir, config.pattern);
     let mut tera = Tera::new(&pattern)?;
 
@@ -47,7 +66,7 @@ mod tests {
         };
 
         // Act
-        let engine = crate::TemplateEngine::build(&config).unwrap();
+        let engine = crate::TemplateEngine::from_config(&config).unwrap();
 
         let mut context = Context::new();
         context.insert("name", "Rustacean");

@@ -1,10 +1,11 @@
 // src/lib/lib.rs
 
 // module declarations
-pub mod template;
-pub mod template_engine;
+pub mod config;
+pub mod engine;
+pub mod errors;
 
 // re-exports
-pub use template::*;
-pub use template_engine::*;
-pub use tera::{Context, Error};
+pub use config::{TemplateConfig, TemplateFile};
+pub use engine::TemplateEngine;
+pub use errors::TemplateError;

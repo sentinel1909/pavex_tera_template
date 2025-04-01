@@ -1,11 +1,9 @@
-// src/template.rs
+// src/config.rs
 
 // dependencies
-use crate::template_engine::compile_templates;
 use std::borrow::Cow;
-use tera::{Context, Error, Tera};
 
-// features
+// optional serde dependency
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -24,22 +22,4 @@ pub struct TemplateConfig {
 pub struct TemplateFile {
     pub path: String,
     pub name: Option<String>,
-}
-
-// struct type to represent a Tera Template Engine
-#[derive(Clone, Debug)]
-pub struct TemplateEngine {
-    pub tera: Tera,
-}
-
-// methods for the Tera Template Engine
-impl TemplateEngine {
-    pub fn build(config: &TemplateConfig) -> Result<Self, Error> {
-        let tera = compile_templates(config)?;
-        Ok(Self { tera })
-    }
-
-    pub fn render(&self, template_name: &str, context: &Context) -> Result<String, Error> {
-        self.tera.render(template_name, context)
-    }
 }
