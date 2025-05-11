@@ -1,7 +1,7 @@
 // tests/render_tests.rs
 
 // dependencies
-use pavex_template::{TemplateConfig, TemplateEngine};
+use pavex_tera_template::{TemplateConfig, TemplateEngine};
 use std::borrow::Cow;
 use std::path::PathBuf;
 use tera::Context;

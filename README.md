@@ -1,3 +1,3 @@
-# Pavex Template
+# Pavex Tera Template
 
-A start of a template library, using Tera templates.
+A start of an unoffical template library using Tera templates.

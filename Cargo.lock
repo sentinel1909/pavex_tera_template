@@ -377,8 +377,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "pavex_template"
-version = "0.4.1"
+name = "pavex_tera_template"
+version = "0.4.2"
 dependencies = [
  "serde",
  "tempfile",
